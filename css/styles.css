@@ -61,6 +61,9 @@ body{
     align-items: center;
 }
 
-
+#result randomImg {
+    width: 100px;
+    height: 100px;
+}
 
 
