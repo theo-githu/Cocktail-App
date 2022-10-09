@@ -70,6 +70,12 @@ let getCocktail = () => {
 window.addEventListener("load", getCocktail);
 searchBtn.addEventListener("click", getCocktail);
 
+document.addEventListener("keypress", (getCocktail)=>{
+    let keyCode = event.keyCode ? event.keyCode :event.which;
+    if (keyCode === 13){
+        searchBtn.click();
+    }
+});
 
 
 //fetching a random cocktail 
