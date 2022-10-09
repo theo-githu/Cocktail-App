@@ -1,10 +1,5 @@
 // // using search bar to return a cocktail
 
-// let result = document.getElementById('result');
-// let searchBtn = document.getElementById('search-btn');
-
-// let APIurl = 'https://thecocktaildb.com/api/json/v1/1/search.php?s=';
-
 let result = document.getElementById("result");
 let searchBtn = document.getElementById("search-btn");
 let url = "https://thecocktaildb.com/api/json/v1/1/search.php?s=";
@@ -80,42 +75,68 @@ document.addEventListener("keypress", (getCocktail)=>{
 
 //fetching a random cocktail 
 
-// function getRandomCocktail(){
-//     fetch('https://thecocktaildb.com/api/json/v1/1/random.php')
-//   .then((response) => response.json())
-//   .then((data) => displayRandomCocktail(data));
-// }
+function getRandomCocktail(){
+    fetch('https://thecocktaildb.com/api/json/v1/1/random.php')
+  .then((response) => response.json())
+  .then((data) => displayRandomCocktail(data));
+}
 
-// getRandomCocktail();
+getRandomCocktail();
 
-// function displayRandomCocktail(cocktail){
-//     console.log(cocktail.drinks[0]); 
+function displayRandomCocktail(cocktail){
+    console.log(cocktail.drinks[0]); 
+           
+    let randomCocktail = cocktail.drinks[0];
 
-//     let result = document.querySelector('#result'); 
+    let random = document.querySelector('#random'); 
 
-//     let cocktailName = document.createElement('h2');
-//     cocktailName.innerHTML = cocktail.drinks[0].strDrink;
-//     result.appendChild(cocktailName);
+    let randomImg = document.createElement('img');
+    randomImg.src = randomCocktail.strDrinkThumb;
+    // random.appendChild(randomImg);
 
-//     let randomImg = document.createElement('img');
-//     randomImg.src = cocktail.drinks[0].strDrinkThumb;
-//     result.appendChild(randomImg);
+    let cocktailName = document.createElement('h2');
+    cocktailName.innerHTML = randomCocktail.strDrink;
+    // random.appendChild(cocktailName);
 
-//     for(let i=1; i<16; i++){
-//         console.log(i);
+    let count = 1;
+    let ingredients = [];
+    for (let i in randomCocktail) {
+        let ingredient = "";
+        let measure = "";
+        if (i.startsWith("strIngredient") && randomCocktail[i]) {
+        ingredient = randomCocktail[i];
+        if (randomCocktail[`strMeasure` + count]) {
+            measure = randomCocktail[`strMeasure` + count];
+        } else {
+            measure = "";
+        }
+        count += 1;
+        ingredients.push(`${measure} ${ingredient}`);
+        }
+    }
+    console.log(ingredients);
 
-//         if(cocktail.drinks[0][`strIngredient${i}`] == null){
-//             break;
-//         }
+    let instruction = document.createElement('p');
+    instruction.innerHTML = randomCocktail.strInstructions;
+    // random.appendChild(instruction);
 
-//         let ingredient = document.createElement('ul');
-//         ingredient.innerHTML = cocktail.drinks[0][`strMeasure${i}`] + ' ' + cocktail.drinks[0][`strIngredient${i}`];
-//         result.appendChild(ingredient);
-//     }
+        result.innerHTML = `
+      <img src=${randomCocktail.strDrinkThumb}>
+      <h2>${randomCocktail.strDrink}</h2>
+      <h3>Ingredients:</h3>
+      <ul class="ingredients"></ul>
+      <h3>Instructions:</h3>
+      <p>${randomCocktail.strInstructions}</p>
+      `;
 
-//     let instruction = document.createElement('p');
-//     instruction.innerHTML = cocktail.drinks[0].strInstructions;
-//     result.appendChild(instruction);
-// }
+      let ingredientsCon = document.querySelector(".ingredients");
+        ingredients.forEach((item) => {
+          let listItem = document.createElement("li");
+          listItem.innerText = item;
+          ingredientsCon.appendChild(listItem);
+        });
+};
+
+          
 
 
