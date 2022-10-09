@@ -61,9 +61,9 @@ body{
     align-items: center;
 }
 
-/* #result randomImg {
-    width: 100px;
-    height: 100px;
-} */
-
+#result img {
+    display: block;
+    max-width: 12.5em;
+    margin: auto;
+}
 
