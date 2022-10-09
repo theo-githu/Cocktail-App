@@ -9,11 +9,11 @@ let result = document.getElementById("result");
 let searchBtn = document.getElementById("search-btn");
 let url = "https://thecocktaildb.com/api/json/v1/1/search.php?s=";
 
-let getInfo = () => {
+let getCocktail = () => {
     let userInp = document.getElementById("search-term").value;
 
     if (userInp.length == 0) {
-        result.innerHTML = `<h3 class="msg">The search field cannot be empty</h3>`;
+        // result.innerHTML = `<h3 class="msg">The search field cannot be empty</h3>`;
       } else {
         fetch(url + userInp)
           .then((response) => response.json())
@@ -67,8 +67,8 @@ let getInfo = () => {
   }
 };
 
-window.addEventListener("load", getInfo);
-searchBtn.addEventListener("click", getInfo);
+window.addEventListener("load", getCocktail);
+searchBtn.addEventListener("click", getCocktail);
 
 
 

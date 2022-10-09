@@ -59,11 +59,53 @@ body{
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    cursor: pointer;
+}
+
+#result {
+    color: #6e6a6a;
+    line-height: 1.75em;
 }
 
 #result img {
     display: block;
-    max-width: 12.5em;
+    max-width: 15em;
     margin: auto;
+    margin-top: 2em;
 }
 
+#result h2{
+    font-size: 1.25em;
+    margin: 1em 0 1em 0;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: black;
+    position: relative;
+}
+
+#result h3 {
+    font-size: 1.1em;
+    margin-bottom: 0.2em;
+    color: black;
+}
+
+#result ul {
+    margin-bottom: 1em;
+    margin-left: 2em;
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+#result p {
+    margin-bottom: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
+    font-size: 0.95em;
+}
+
+@media screen and (max-width: 600px) {
+    .main-container {
+        font-size: 14px;
+    }
+}
