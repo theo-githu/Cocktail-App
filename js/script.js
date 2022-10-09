@@ -1,52 +1,76 @@
 // // using search bar to return a cocktail
 
-let result = document.getElementById('result');
-let searchBtn = document.getElementById('search-btn');
+// let result = document.getElementById('result');
+// let searchBtn = document.getElementById('search-btn');
 
-let APIurl = 'https://thecocktaildb.com/api/json/v1/1/search.php?s=';
-let userInput = document.getElementById('search-term').value;
+// let APIurl = 'https://thecocktaildb.com/api/json/v1/1/search.php?s=';
 
-if(userInput.length == 0){
-    result.innerHTML = '<h4 class="message">The search field cannot be empty</h4>';
-} else {
-    fetch(APIurl + userInput).then((response) => response.json())
-    .then((data) => {
-        console.log(data);
-        console.log(data.drinks[0]);
-        let cocktailSearch = data.drinks[0];
+let result = document.getElementById("result");
+let searchBtn = document.getElementById("search-btn");
+let url = "https://thecocktaildb.com/api/json/v1/1/search.php?s=";
 
-        console.log(cocktailSearch.strDrink);
-        console.log(cocktailSearch.strDrinkThumb);
-        console.log(cocktailSearch.strInstructions);
+let getInfo = () => {
+    let userInp = document.getElementById("search-term").value;
 
-        // let count = 1;
-        // let ingredients = [];
-        // for (let i in cocktailSearch){
-        //     let ingredient = "";
-        //     let measure = "";
-        //     if (i.startsWith("strIngredient") && cocktailSearch[i]){
-        //         ingredient = cocktailSearch[i];
-        //         if (cocktailSearch['strMeasure' + count]){
-        //             measure = cocktailSearch['strMeasure' + count];
-        //         } else {
-        //             measure = '';
-        //         }
-        //         count += 1; 
-        //         ingredients.push('${Measure} ${Ingredient}');
-        //     }
-        // }
-        // console.log(ingredients);
+    if (userInp.length == 0) {
+        result.innerHTML = `<h3 class="msg">The search field cannot be empty</h3>`;
+      } else {
+        fetch(url + userInp)
+          .then((response) => response.json())
+          .then((data) => {
+            document.getElementById("search-term").value = "";
+            console.log(data);
+            console.log(data.drinks[0]);
+            let cocktailSearch = data.drinks[0];
 
-        // result.innerHTML = '<h2>${cocktailSearch.strDrink}</h2><h3>Ingredients:</h3><h3>Instructions:</h3>';
-        // <img src = ${cocktailSearch.strDrinkThumb}>
-        // <h2>${cocktailSearch.strDrink}</h2>
-        // <h3>Ingredients:</h3>
-        // <ul class="ingredients"></ul>
-        // <h3>Instructions:</h3>
-        // <p>${cocktailSearch.strInstructions}</p>
+            console.log(cocktailSearch.strDrink);
+            console.log(cocktailSearch.strDrinkThumb);
+            console.log(cocktailSearch.strInstructions);
 
-    });
-}
+        let count = 1;
+        let ingredients = [];
+        for (let i in cocktailSearch) {
+            let ingredient = "";
+            let measure = "";
+            if (i.startsWith("strIngredient") && cocktailSearch[i]) {
+            ingredient = cocktailSearch[i];
+            if (cocktailSearch[`strMeasure` + count]) {
+                measure = cocktailSearch[`strMeasure` + count];
+            } else {
+                measure = "";
+            }
+            count += 1;
+            ingredients.push(`${measure} ${ingredient}`);
+            }
+        }
+        console.log(ingredients);
+
+        result.innerHTML = `
+      <img src=${cocktailSearch.strDrinkThumb}>
+      <h2>${cocktailSearch.strDrink}</h2>
+      <h3>Ingredients:</h3>
+      <ul class="ingredients"></ul>
+      <h3>Instructions:</h3>
+      <p>${cocktailSearch.strInstructions}</p>
+      `;
+
+        let ingredientsCon = document.querySelector(".ingredients");
+        ingredients.forEach((item) => {
+          let listItem = document.createElement("li");
+          listItem.innerText = item;
+          ingredientsCon.appendChild(listItem);
+        });
+      })
+      .catch(() => {
+        result.innerHTML = `<h3 class="msg">Please enter a known cocktail</h3>`;
+      });
+  }
+};
+
+window.addEventListener("load", getInfo);
+searchBtn.addEventListener("click", getInfo);
+
+
 
 //fetching a random cocktail 
 
@@ -87,3 +111,5 @@ if(userInput.length == 0){
 //     instruction.innerHTML = cocktail.drinks[0].strInstructions;
 //     result.appendChild(instruction);
 // }
+
+
