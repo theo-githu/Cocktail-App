@@ -84,7 +84,7 @@ function getRandomCocktail(){
 getRandomCocktail();
 
 function displayRandomCocktail(cocktail){
-    console.log(cocktail.drinks[0]); 
+    //console.log(cocktail.drinks[0]); 
            
     let randomCocktail = cocktail.drinks[0];
 
